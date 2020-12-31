@@ -1,0 +1,37 @@
+{% extends "students/essentials/body4.html" %}
+{% block content %}
+   
+            <!--content-->
+            <h2> REMARKS </h2>
+           <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+            </form>
+<div class="table-content">
+                <div class="table-responsive">
+                 <table class="table-student">
+                    <thead class="thead-dark">
+                    <tr>
+                     <th scope="col">#</th>
+                     <th scope="col">  PROJECT PHASE </th>
+                     <th scope="col">  SUEPERVISOR REMARKS </th>
+                     <th scope="col">  DATE OF REMARK  </th>
+                    </tr>
+                    </thead>
+                <tbody>
+                {% for student in Students %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{}}</td>
+                        <td>{{}}</td>
+                        <td>{{}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                 </table>
+            {% if url%}
+            <p>Uploaded file: <a href="{{ url }}">{{ url }}</a></p>
+            {% endif %}       
+                   
+  
+    
+{% endblock content %}

@@ -1,0 +1,264 @@
+body {
+    font-family: sans-serif;
+    margin:0;
+    padding: 0;
+    background: url(../images/minimal.jpg);
+    background-size: cover;
+    background-position: center;
+    height:100%;
+
+}
+.img responsive{
+  width: 100%;
+  height: auto;
+}
+.title{
+  padding: 10px;
+  text-align: center;
+  background: green;
+  color: black;
+  font-size: 15px;
+}
+.navigating_lg_sn {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background:transparent;
+}
+.navigating_lg_sn li{
+  float: right;
+}
+.navigating_lg_sn a{
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.navigating_lg_sn a:hover{
+  background-color: #111;
+}
+.navigating{
+    list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 10%;
+  background:transparent;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  text-align: left;
+}
+.navigating a {
+    display: block;
+    color: #000;
+    padding: 10px 16px;
+    text-decoration: none;
+  }
+  .navigating a:hover {
+    background-color: #111;
+    color: white;
+  }
+  .content {
+    margin-left: 26%;
+  }
+  .content1 {
+  margin-left: 0%;
+  }
+
+  .content h1{
+    text-align: center;
+  }
+  .login {
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-bottom: 25%;
+    margin-top: 5%;
+    
+  }
+  .login-box{
+    padding: 70px 30px;
+    text-align: center;
+    background: transparent;
+    color: black;
+    font-size: 15px;
+    border-radius: 5%;
+    border-style: solid;
+    height:520px;
+    width: 350px;
+    top:70%;
+    left:50%;
+    position: absolute;
+    transform: translate(-50% ,-50%);
+    box-sizing: border-box;
+
+  }
+  .profile-box{
+  padding: 70px 30px;
+    text-align: left;
+    background: transparent;
+    color: black;
+    font-size: 15px;
+    border-radius: 5%;
+    border-style: solid;
+    height:600px;
+    width: 520px;
+    top:60%;
+    left:50%;
+    position: absolute;
+    transform: translate(-50% ,-50%);
+    box-sizing: border-box;
+  }
+    .signup-form{
+    align-content: left;
+    text-align: left;
+  }
+  .userprofile{
+   width: 100px;
+   height: 100px;
+   border-radius: 50%;
+   position: absolute;
+   background:transparent;
+   top:20%;
+   left:46%;
+ }
+ .
+ .login-box p{
+   margin: 0;
+   padding: 0 0 20px;
+   text-align: left;
+   font-weight: bold;
+ }
+ .login-box-content input{
+   width: 100%;
+   margin-bottom:20px;
+ }
+ .login-box-content input[type="text"]{
+  border:none;
+  border-bottom: 1px solid black;
+  background: transparent;
+  outline:none;
+  height :40px;
+  color: #000;
+  font-size:16 px;
+ }
+ .login-box-content input[type="submit"]{
+   border:none;
+   outline:none;
+   background: #1c8adb;
+   color: #fff;
+   height:40px;
+   font-size: 18px;
+   border-radius: 20px;
+ }
+.login-box-content input[type="submit"] :hover{
+cursor:pointer;
+background: #39dc79;
+color:#000;
+}
+.login-box-content a{
+  text-decoration:none;
+  font-size:14px;
+  color :black;
+}
+.users input[type="submit"]{
+  background: green;
+  width:20%;
+  font-family: sans-serif;
+  font-size: 18px;
+  border-radius: 20px;
+  border: none;
+  height: 40px;
+  
+}
+  .container {
+    padding: 16px;
+  }
+  
+  
+  input[type=text], select {
+    align-content: center;
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  /* Style the submit button */
+  input[type=login] {
+    width: 25%;
+    background-color: #000080;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  /* Add a background color to the submit button on mouse-over */
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+  .table-student{
+    width: 70%;
+    }
+    .table th{
+      height:50 px;
+      text-align: left;
+    }
+    .table td, th{
+      padding: 15px;
+      text-align: left;
+    }
+    .upload{
+     background: blueviolet;
+    }
+  .topics-table{
+    width: 80%;
+    
+  }
+  .topics-table th{
+    height:50 px;
+    text-align: left;
+  }
+  .topics-table td, th{
+    padding: 15px;
+  }
+  .view{
+   background: blueviolet;
+  }
+
+
+.carousel, .item, .active {
+height:100%;
+}
+.carousel-inner img{
+height:100%;
+width: 100%;
+}
+.carousel {
+margin-bottom: 60px;
+}
+
+
+.carousel-inner .carousel-item  .bg {
+background-image:url('../images/vector.jpg');
+background-size:cover;
+background-position: center;
+}
+.carousel-inner .carousel-item .bg1 {
+background-image:url('../images/royalty.jpg');
+background-size:cover;
+background-position: center;
+
+.carousel-inner .carousel-item .bg2 {
+background-image:url('../images/screen.jpg');
+background-size:cover;
+background-position: center;
+}

@@ -1,0 +1,35 @@
+{% extends "students/essentials/body3.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+            <!--content-->
+            <div>
+              <div class="signup-form">
+                <h2>Sign up as a student</h2>
+            <form action= "{% url 'student_signup' %}" method="POST" novalidate>
+              {% csrf_token %}
+               {{ form|crispy }}
+              <button class="btn btn-outline-info" type="submit">Sign up</button>
+              <div class= "border-top pt-3">
+                 <small class="text-muted">
+                 already have an account? <a class= "ml-2" href="{% url 'login' %}"> Sign in </a>
+                 </small>
+                 </div>
+              </form>
+
+              </div>
+              </div>
+
+       <!-- <form method="POST" novalidate>-->
+        <!--<form method="post">
+    {% csrf_token %}
+    {{ form|crispy}}
+    <button type="submit">Sign up</button>
+  </form>
+  </div>-->
+
+
+
+{% endblock content%}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'students/css/style.css'%}"/>
+    <title></title>
+</head>
+<body>
+
+    <section class="main">
+        <section class="head_home">
+            <!---header-->
+            <div class="title">
+                <h1>SCIT STUDENT PROJECT MANAGEMENT</h1>
+                {% if request.user.is_authenticated %}
+                <ul class="navigating_lg_sn">
+                    <li><a href="{% url 'profile' %}">{{ user.username }}</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                    <li><a href="{% url 'profile' %}">Profile</a></li>
+                </ul>
+                {% else %}
+                <ul class="navigating_lg_sn">
+                    <li><a class="active" href="{% url 'login' %}">LOG IN</a></li>
+                    <li><a href="{% url 'users:signup_form' %}">REGISTER</a></li>
+                </ul>
+                
+                {% endif %}
+            </div>
+        </section>
+        <section class="goto_pages">
+            <div>
+                <ul class="navigating">
+                    
+                    <li><a href="{% url 'users:upload_project' %}">Upload</a></li>
+                    <li><a href="{% url 'users:student_remarks' %}">Remarks</a></li>
+
+                    <li><a href="html/mystudents.html">My students</a></li>
+                  </ul>
+            </div>
+        </section>
+
+                
+        <section class="content">
+        {% block content %}
+        
+        {% endblock content %}
+            
+        </section>
+    </section>
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script type= "text/javascript" charset = "utf-8">
+        $(document).ready(function(){
+            $('.slider').slider({full_width : true});
+            });
+            </script>
+</body>
+</html>

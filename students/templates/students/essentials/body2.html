@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'students/css/style.css'%}"/>
+    <title></title>
+</head>
+<body>
+
+
+        
+            <!---header-->
+          <!-- <div class="title">
+                <h2>ADD PROJECT</h2>
+                <ul class="navigating_lg_sn">
+                <div>
+                    <li><a class="active" href="{%url 'users:uploadproject'%}">Upload projects</a></li>
+                   
+                    <li><a href="#register">New document</a></li>
+                </ul>
+            </div>-->
+        
+        <section class="goto_pages">
+            <div>
+                <ul class="navigating">
+                    
+                    <li><a href="{% url 'users:upload_project' %}">Upload </a></li>
+                    <li><a href="{% url 'users:student_remarks' %}">Remarks</a></li>
+
+                    <li><a href="{% url 'users:mystudents'%}">My students</a></li>
+                  </ul>
+            </div>
+        </section>
+        <section class="content">
+        {%block content%}{%end block%}
+            
+        </section>
+    </section>
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

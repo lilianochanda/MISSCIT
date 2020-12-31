@@ -1,0 +1,43 @@
+{%extends "students/essentials/body4.html"%}
+{% block content %}
+   
+            <!--content-->
+           
+            <div>
+             <h1>TOPICS </h1>   
+            </div>
+           <div class="table-content">
+                <div class="table-responsive">          
+                 <table class="topics-table">
+                    <thead>
+                    <tr>
+                     
+                     <th>  Title  </th>
+                     <th>  Registration_number  </th>
+                     <th>  Year_done  </th>
+                     <th>  PDF  </th>
+                    </tr>
+                    </thead>
+                <tbody>
+                {%for project in Projects%}
+                    <tr>
+                        <td>{{ projects.title }}</td>
+                        <td>{{ project.registration_number }}</td>
+                        <td>{{ projects.year_done }}</td>
+                        <td>
+                        <a href ="{{ projects.pdf.url }}" class = "btn btn-primary btn-sm">
+                        Download PDF
+                        </a></td>
+                        <td>
+                        
+                        <button class= "view">VIEW</button>
+                        </td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+                 </table>
+                </div>
+                
+            </div>
+ 
+{% endblock content%}

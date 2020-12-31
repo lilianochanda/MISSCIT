@@ -1,0 +1,46 @@
+{%extends "students/essentials/body5.html"%}
+{% block content %}
+   
+            <!--content-->
+            <div>
+             <h1>MY STUDENTS</h1>   
+            </div>
+             
+            <!--content-->
+            <div>
+             <h1>Assigned Projects</h1>   
+            </div>
+            <div class="table-content">
+                <div class="table-responsive">          
+                 <table class="table-student">
+                    <thead class="thead-dark">
+                    <tr>
+                     <th scope="col">#</th>
+                     <th scope="col">  SUBMITTED BY  </th>
+                     <th scope="col">  PROJECT  </th>
+                     <th scope="col">  UPLOADED ON  </th>
+                     <th scope="col">  DOWNLOAD  </th>
+                     <th scope="col">  STATUS  </th>
+                     <th scope="col">  REMARKS  </th>
+                    </tr>
+                    </thead>
+                <tbody>
+                {% for project in Projects %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{student.name}}</td>
+                        <td>{{project.title}}</td>
+                        <td>{{upload.created_at}}</td>
+                        <td><a href="{{project.pdf.url}}" class="btn btn-primary" target="_blank">Download</a></td>
+                        <td><a  class="btn btn-danger" href="{% url 'add_remarks' %}">Remarks</a></td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+                 </table>
+                </div>
+            
+           </div> 
+        
+ 
+{% endblock content%}

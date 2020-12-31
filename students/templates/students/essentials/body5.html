@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'students/css/style.css'%}"/>
+    <title></title>
+</head>
+<body>
+
+    <section class="main">
+        <section class="head_home">
+            <!---header-->
+           <div class="title">
+                <h2>SCIT STUDENTS PROJECT MANAGEMENT</h2>
+                <ul class="navigating_lg_sn">
+                    <li><a class="active" href="{%url 'logout'%}">LOG OUT</a></li>
+
+                </ul>
+            </div>
+        </section>
+        <section class="goto_pages">
+            <div>
+                <ul class="navigating">
+                    <li><a class="active" href="{% url 'users:student-home' %}">Home</a></li>
+
+                    <li><a href="{% url 'users:student_remarks' %}">Remarks</a></li>
+
+                    <li><a href="{% url 'users:mystudents' %}">My students</a></li>
+                  </ul>
+            </div>
+        </section>
+        <section class="content">
+        {% block content %}{% endblock %}
+
+        </section>
+    </section>
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{% extends "students/essentials/body3.html" %}
+{% block content %}
+<div class = "container">
+  <div class = "px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display 4">ALL PROJECTS</h1>
+    <p class="lead">A range of projects to help you learn how to write projects</p>
+  </div>
+  <div class="py-5">
+    <div class="row">
+      {% for category in Categories %}
+      <div class="col-md-4">
+        <a class="text-dark" href="#">
+          <div class="card-mb-4 box-shadow">
+            <div class="card-body">
+              <h2 style="font-size:18px;font-weight:bold;min-height:42px;"> {{ category.name }} </h2>
+                {% for category in Categories  %}
+              <div class="d-flex justify-content-between align-items-center">
+                <a href=" {% url 'project_list'  %}">{{ category.project }}</a>
+              </div>
+               {% endfor %}
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

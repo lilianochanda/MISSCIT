@@ -14,11 +14,27 @@ from students.forms import UserCreationForm,  UserUpdateForm, ProfileUpdateForm,
 from django.contrib import messages
 from students.models import Project, Student, Lecturer, User, Category
 from django.contrib.auth.decorators import login_required
-from django.views.generic import CreateView, TemplateView, DetailView
+from django.views.generic import CreateView, TemplateView, DetailView, UpdateView
 from students.forms import StudentSignUpForm, LecturerSignUpForm, SubmitForm
 from .decorators import allowed_users
 from django.utils import timezone
 from django.views import generic
+from django.urls import reverse_lazy
+
+
+class ProjectUpdateView(UpdateView):
+    model = Project
+    template_name = 'project-update.html'
+    fields = ('status',)
+
+    def get_context_data(self, **kwargs):
+        registration_no = kwargs.get('registration_no')
+        context = super().get_context_data(**kwargs)
+        context["project"] = get_object_or_404(Project, registration_no=registration_no)
+        return context
+
+    def get_success_url(self) -> str:
+        return reverse_lazy("mystudents")
 
 
 def student_remarks(request):
@@ -36,6 +52,15 @@ def project_list(request):
     })
 
 
+def upload(request):
+    context = {}
+    if request.method == 'POST':
+        uploaded_file = request.FILES['document']
+        fs = FileSystemStorage()
+        name = fs.save(uploaded_file.name, uploaded_file)
+        context['url'] = fs.url(name)
+        return render(request, 'students/upload.html', context)
+
 def upload_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST, request.FILES)
@@ -49,22 +74,22 @@ def upload_project(request):
     })
 
 
-def submit_project(request, id=None):
-    student = request.user.Student
-    project = get_object_or_404(Project, id=id)
-    lecturer = project.lecturer
-    if request.method == 'POST':
-        form = SubmitForm(request.POST, request.FILES)
-        if form.is_valid():
-            upload = form.save(commit=False)
-            upload.Lecturer = lecturer
-            upload.Student = student
-            upload.submitted_project = Project
-            upload.save()
-            return redirect('student_remarks')
-        else:
-            form = SubmitForm()
-            return render(request, 'students/upload_project.html', {'form': form})
+#def submit_project(request, id=None):
+    #student = request.user.Student
+    #project = get_object_or_404(Project, id=id)
+    #lecturer = project.lecturer
+    #if request.method == 'POST':
+        #form = SubmitForm(request.POST, request.FILES)
+        #if form.is_valid():
+            #upload = form.save(commit=False)
+            #upload.Lecturer = lecturer
+            #upload.Student = student
+            #upload.submitted_project = Project
+            #upload.save()
+            #return redirect('student_remarks')
+        #else:
+            #form = SubmitForm()
+            #return render(request, 'students/upload_project.html', {'form': form})
 
 
 def submit_list(request):
@@ -122,10 +147,16 @@ class LecturerSignUpView(CreateView):
 # })
 
 
-
 def mystudents(request):
     lecturer = request.user.lecturer
-    return render(request, 'students/mystudents.html', {'lecturer': lecturer})
+    #lecturer = request.user
+    projects = request.user.projects_assigned.all()
+    context = {
+        'lecturer': lecturer,
+        'my_projects': request.user.projects_assigned.all()
+    }
+
+    return render(request, 'students/mystudents.html',context)
 
 
 @login_required
@@ -161,17 +192,17 @@ def index(request):
     return render(request, 'students/main.html', context)
 
 
-def add_remarks(request,pk):
+def add_remarks(request):
     remarks_given = False
-    student = get_object_or_404(models.Student, pk=pk)
+    student = get_object_or_404(models.Student)
     if request.method == "POST":
         form = RemarksForm(request.POST)
         if form.is_valid():
             remarks = form.save(commit=False)
             remarks.student = student
-            remarks.teacher = request.user.Teacher
+            remarks.lecturer = request.user.lecturer
             remarks.save()
-            messages.success(request, 'Marks uploaded successfully!')
+            messages.success(request, 'remarks uploaded successfully!')
             return redirect('students:mystudents')
     else:
         form = RemarksForm()

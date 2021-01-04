@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from students.views import home, signup, profile, project_list, upload_project,  submit_project,  StudentSignUpView, LecturerSignUpView, index, student_remarks, add_remarks
+from students.views import home, signup, profile, upload, project_list, upload_project,  ProjectUpdateView, StudentSignUpView, LecturerSignUpView, index, student_remarks, add_remarks
 
 from django.conf.urls.static import static
 from django.conf import settings
@@ -33,12 +33,14 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='students/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='students/logout.html'), name='logout'),
     path('project/', project_list, name='project_list'),
+    path('upload/', upload, name='upload'),
     path('upload/', upload_project, name='upload_project'),
     path('student_signup/', StudentSignUpView.as_view(), name='student_signup'),
     path('lecturer_signup/', LecturerSignUpView.as_view(), name='lecturer_signup'),
     path('student_remarks/', student_remarks, name='student_remarks'),
     path('add_remarks/', add_remarks, name='add_remarks'),
-    path('submit_project/', submit_project, name='submit_project'),
+    #path('submit_project/', submit_project, name='submit_project'),
+    path('my-projects/<str:registration_no>/edit', ProjectUpdateView.as_view(), name="project_update"),
 ]
 
 if settings.DEBUG:

@@ -31,45 +31,40 @@ class Student(models.Model):
         return self.user.username
 
 
-class Project(models.Model):
-    PHASE_CHOICES = [
+PHASE_CHOICES = [
         ('PROJECT_CONCEPT', 'project concept'),
         ('FIRST_CHAPTERS', 'first chapters'),
         ('DRAFT_PROJECT', 'draft project'),
         ('FINAL_PROJECT', 'final project'),
     ]
+
+
+STATUS_CHOICES = [
+        ('APPROVED', 'APPROVED'),
+        ('REJECTED', 'REJECTED'),
+        ('APPROVED WITH REMARKS', 'APPROVED WITH REMARKS'),
+        ('PENDING', 'PENDING'),
+    ]
+class Project(models.Model):
     phase = models.CharField(max_length=30, choices=PHASE_CHOICES, default='PROJECT_CONCEPT')
     student = models.ForeignKey(Student, related_name='student_project', on_delete=models.CASCADE)
     project_title = models.CharField(max_length=100)
     registration_no = models.CharField(max_length=100, primary_key=True)
     project_brief = models.TextField(default='description')
     submission_date = models.DateTimeField()
+    supervisor = models.ManyToManyField(User, limit_choices_to={'is_lecturer':True}, related_name='projects_assigned')
     pdf = models.FileField(upload_to='projects/pdf/')
-
+    status = models.CharField(max_length=30, choices=STATUS_CHOICES, default='PENDING')
     def __str__(self):
         return self.project_title
 
 
-
-
-
 class LecturerRemarks(models.Model):
-    PHASE_CHOICES = [
-        ('PROJECT_CONCEPT', 'project concept'),
-        ('FIRST_CHAPTERS', 'first chapters'),
-        ('DRAFT_PROJECT', 'draft project'),
-        ('FINAL_PROJECT', 'final project'),
-    ]
     phase = models.CharField(max_length=30, choices=PHASE_CHOICES, default='PROJECT_CONCEPT')
     project_title = models.ForeignKey(Project, related_name='student_projects', on_delete=models.CASCADE, null=True)
     student = models.ForeignKey(Student, related_name='student_obtained_remarks', on_delete=models.CASCADE, null=True)
     lecturer = models.ForeignKey(Lecturer, related_name='lecturer_give_remarks', on_delete=models.CASCADE, null=True)
     remarks_obtained = models.TextField()
-    STATUS_CHOICES = [
-        ('APPROVED', 'APPROVED'),
-        ('REJECTED', 'REJECTED'),
-        ('APPROVED WITH REMARKS', 'APPROVED WITH REMARKS'),
-    ]
     status = models.CharField(max_length=30, choices=STATUS_CHOICES)
 
     def __str__(self):

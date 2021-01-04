@@ -36,7 +36,7 @@ class ProfileUpdateForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['phase', 'project_title', 'registration_no', 'project_brief', 'submission_date', 'pdf']
+        fields = ['phase', 'project_title', 'registration_no', 'project_brief', 'submission_date', 'supervisor', 'pdf']
 
 
 class SubmitForm(forms.ModelForm):

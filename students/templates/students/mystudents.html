@@ -1,4 +1,4 @@
-{%extends "students/essentials/body5.html"%}
+{% extends "students/essentials/body5.html" %}
 {% block content %}
    
             <!--content-->
@@ -19,20 +19,23 @@
                      <th scope="col">  SUBMITTED BY  </th>
                      <th scope="col">  PROJECT  </th>
                      <th scope="col">  UPLOADED ON  </th>
-                     <th scope="col">  DOWNLOAD  </th>
-                     <th scope="col">  STATUS  </th>
+                     <th scope="col">  STATUS </th>
+                     <th scope="col"> DOWNLOAD </th>
                      <th scope="col">  REMARKS  </th>
                     </tr>
                     </thead>
                 <tbody>
-                {% for project in Projects %}
+                {% for project in my_projects %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
-                        <td>{{student.name}}</td>
-                        <td>{{project.title}}</td>
-                        <td>{{upload.created_at}}</td>
+                        <td>{{project.student}}</td>
+                        <td>{{project.project_title}}</td>
+                        <td>{{project.submission_date}}</td>
+                        <td class="text-capitalize">{{project.status}}</td>
                         <td><a href="{{project.pdf.url}}" class="btn btn-primary" target="_blank">Download</a></td>
-                        <td><a  class="btn btn-danger" href="{% url 'add_remarks' %}">Remarks</a></td>
+                        #<td><a  class="btn btn-primary" href="{% url 'project_update' project.registration_no  %}">update status</a></td>
+                        <td><a  class="btn btn-danger" href="{% url 'add_remarks'  %}">Remarks</a></td>
+
 
                     </tr>
                 {% endfor %}

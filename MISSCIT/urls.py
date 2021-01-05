@@ -32,7 +32,7 @@ urlpatterns = [
     path('profile/', profile, name='profile'),
     path('login/', auth_views.LoginView.as_view(template_name='students/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='students/logout.html'), name='logout'),
-    path('project/', project_list, name='project_list'),
+    path('project-list/', project_list, name='project_list'),
     path('upload/', upload, name='upload'),
     path('upload/', upload_project, name='upload_project'),
     path('student_signup/', StudentSignUpView.as_view(), name='student_signup'),

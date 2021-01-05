@@ -6,7 +6,7 @@
   {% if remarks_given %}
   <h1>Remarks added successfully.</h1>
   {% else %}
-  <h1>Give Remarks to {{ student.name }}</h1>
+  <h1>Give Remarks to {{ student.username }}</h1>
   <form method="post">
     {% csrf_token %}
     {% bootstrap_form form %}

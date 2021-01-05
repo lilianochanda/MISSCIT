@@ -39,17 +39,16 @@ class ProjectUpdateView(UpdateView):
 
 def student_remarks(request):
     projects = Project.objects.all()
-    return render(request, 'students/student_remarks.html',{
-        'Projects': projects
-    })
+
+    return render(request, 'students/student_remarks.html', {'Projects': projects})
 
 
 def project_list(request):
     projects = Project.objects.all()
-
-    return render(request, 'students/project_list.html', {
+    context = {
         'Projects': projects
-    })
+    }
+    return render(request, 'students/project_list.html', context)
 
 
 def upload(request):
@@ -149,7 +148,6 @@ class LecturerSignUpView(CreateView):
 
 def mystudents(request):
     lecturer = request.user.lecturer
-    #lecturer = request.user
     projects = request.user.projects_assigned.all()
     context = {
         'lecturer': lecturer,

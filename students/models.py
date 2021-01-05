@@ -55,6 +55,7 @@ class Project(models.Model):
     supervisor = models.ManyToManyField(User, limit_choices_to={'is_lecturer':True}, related_name='projects_assigned')
     pdf = models.FileField(upload_to='projects/pdf/')
     status = models.CharField(max_length=30, choices=STATUS_CHOICES, default='PENDING')
+
     def __str__(self):
         return self.project_title
 

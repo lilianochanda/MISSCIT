@@ -15,12 +15,12 @@ from django.contrib import messages
 from students.models import Project, Student, Lecturer, User, Category
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, TemplateView, DetailView, UpdateView
-from students.forms import StudentSignUpForm, LecturerSignUpForm
+from students.forms import StudentSignUpForm, LecturerSignUpForm, SubmitForm
 from .decorators import allowed_users
 from django.utils import timezone
 from django.views import generic
 from django.urls import reverse_lazy
-from students import models
+
 
 class ProjectUpdateView(UpdateView):
     model = Project
@@ -60,7 +60,6 @@ def upload(request):
         context['url'] = fs.url(name)
         return render(request, 'students/upload.html', context)
 
-
 def upload_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST, request.FILES)
@@ -73,8 +72,6 @@ def upload_project(request):
         'form': form
     })
 
-class ProjectCreateView(CreateView):
-    model = Project
 
 #def submit_project(request, id=None):
     #student = request.user.Student

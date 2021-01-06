@@ -18,6 +18,7 @@ urlpatterns = [
     path('my-projects/<str:registration_no>/edit', views.ProjectUpdateView.as_view(), name="project_update"),
     path('project-list/', views.project_list, name='project_list'),
     path('upload/', views.upload_project, name='upload_project'),
+    path('upload-project', views.ProjectCreateView.as_view(), name="upload_new_project"),
     path('student_signup/', views.StudentSignUpView.as_view(), name='student_signup'),
     path('lecturer_signup/', views.LecturerSignUpView.as_view(), name='lecturer_signup'),
     path('student_remarks/', views.student_remarks, name='student_remarks'),

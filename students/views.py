@@ -15,7 +15,7 @@ from django.contrib import messages
 from students.models import Project, Student, Lecturer, User, Category
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, TemplateView, DetailView, UpdateView
-from students.forms import StudentSignUpForm, LecturerSignUpForm, SubmitForm
+from students.forms import StudentSignUpForm, LecturerSignUpForm
 from .decorators import allowed_users
 from django.utils import timezone
 from django.views import generic
@@ -60,10 +60,15 @@ def upload(request):
         context['url'] = fs.url(name)
         return render(request, 'students/upload.html', context)
 
+
 def upload_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
+            project = form.save(commit=False)
+            user = request.user
+            project.student = Student
+            project.student = user
             form.save()
         return redirect('student_remarks')
     else:
@@ -72,6 +77,14 @@ def upload_project(request):
         'form': form
     })
 
+
+class ProjectCreateView(CreateView):
+    model = Project
+    form_class = ProjectForm
+    template_name = 'students/upload_project.html'
+
+    def get_success_url(self):
+        return reverse_lazy('projects')
 
 #def submit_project(request, id=None):
     #student = request.user.Student
@@ -154,7 +167,7 @@ def mystudents(request):
         'my_projects': request.user.projects_assigned.all()
     }
 
-    return render(request, 'students/mystudents.html',context)
+    return render(request, 'students/mystudents.html', context)
 
 
 @login_required

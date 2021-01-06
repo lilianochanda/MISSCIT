@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile, Project, Student, User, Lecturer, LecturerRemarks, SubmitProject
+from .models import Profile, Project, Student, User, Lecturer, LecturerRemarks
 from django.db import transaction
 #from django.contrib.auth import get_user_model
 #queryset = get_user_model().objects.all()
@@ -39,10 +39,10 @@ class ProjectForm(forms.ModelForm):
         fields = ['phase', 'project_title', 'registration_no', 'project_brief', 'submission_date', 'supervisor', 'pdf']
 
 
-class SubmitForm(forms.ModelForm):
-    class Meta:
-        model = SubmitProject
-        fields = ['submit']
+#class SubmitForm(forms.ModelForm):
+    #class Meta:
+        #model = SubmitProject
+        #fields = ['submit']
 
 
 class RemarksForm(forms.ModelForm):

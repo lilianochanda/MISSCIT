@@ -12,6 +12,12 @@ body {
   width: 100%;
   height: auto;
 }
+
+.carousel .carousel-inner img {
+    display:block;
+    object-fit: cover;
+}
+
 .title{
   padding: 10px;
   text-align: center;
@@ -102,7 +108,7 @@ body {
     font-size: 15px;
     border-radius: 5%;
     border-style: solid;
-    height:600px;
+    height:1000px;
     width: 520px;
     top:60%;
     left:50%;

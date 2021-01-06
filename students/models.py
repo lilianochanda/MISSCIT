@@ -72,18 +72,18 @@ class LecturerRemarks(models.Model):
         return self.project_title
 
 
-class SubmitProject(models.Model):
-    student = models.ForeignKey(Student, related_name='student_submit', on_delete=models.CASCADE)
-    lecturer = models.ForeignKey(Lecturer, related_name='lecturer_submit',on_delete=models.CASCADE)
-    uploaded_on = models.DateTimeField(auto_now_add=True)
+#class SubmitProject(models.Model):
+    #student = models.ForeignKey(Student, related_name='student_submit', on_delete=models.CASCADE)
+    #lecturer = models.ForeignKey(Lecturer, related_name='lecturer_submit',on_delete=models.CASCADE)
+    #uploaded_on = models.DateTimeField(auto_now_add=True)
     #pdf = models.Foreignkey(Project, related_name='submission_for_project', on_delete=models.CASCADE)
-    submit = models.FileField(upload_to='submission')
+    #submit = models.FileField(upload_to='submission')
 
-    def __str__(self):
-        return "submitted+str(self.submitted_project.project_title)"
+    #def __str__(self):
+       # return "submitted+str(self.submitted_project.project_title)"
 
-    class Meta:
-        ordering = ['uploaded_on']
+    #class Meta:
+        #ordering = ['uploaded_on']
 
 
 class Category(models.Model):

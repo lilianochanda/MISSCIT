@@ -40,7 +40,7 @@ urlpatterns = [
     path('student_remarks/', student_remarks, name='student_remarks'),
     path('add_remarks/', add_remarks, name='add_remarks'),
     #path('submit_project/', submit_project, name='submit_project'),
-    path('my-projects/<str:registration_no>/edit', ProjectUpdateView.as_view(), name="project_update"),
+    #path('my-projects/<str:registration_no>/edit', ProjectUpdateView.as_view(), name="project_update"),
 ]
 
 if settings.DEBUG:

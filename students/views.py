@@ -72,6 +72,13 @@ def upload_project(request):
         'form': form
     })
 
+class ProjectCreateView(CreateView):
+    model = Project
+    form_class = ProjectForm
+    template_name = 'students/upload_project.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('projects')
 
 #def submit_project(request, id=None):
     #student = request.user.Student
@@ -110,6 +117,7 @@ def logout(request):
 
 def signup(request):
     return render(request, 'students/signup_form.html')
+
 
 
 class StudentSignUpView(CreateView):

@@ -1,15 +1,15 @@
 {% extends "students/essentials/body4.html" %}
-{% load bootstrap4 %}
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="container">
 <div class="jumbotron">
   {% if remarks_given %}
   <h1>Remarks added successfully.</h1>
   {% else %}
-  <h1>Give Remarks to {{ student.username }}</h1>
+  <h1>Give Remarks to {{ student.registration_no }}</h1>
   <form method="post">
     {% csrf_token %}
-    {% bootstrap_form form %}
+    {{ form|crispy }}
     <input type="submit" class="btn btn-danger" name="" value="Add Remarks">
   </form>
   {% endif %}

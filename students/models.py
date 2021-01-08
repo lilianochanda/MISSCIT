@@ -47,12 +47,12 @@ STATUS_CHOICES = [
     ]
 class Project(models.Model):
     phase = models.CharField(max_length=30, choices=PHASE_CHOICES, default='PROJECT_CONCEPT')
-    student = models.ForeignKey(Student, related_name='student_project', on_delete=models.CASCADE)
+    student = models.ManyToManyField(User, limit_choices_to={'is_student': True},related_name='student_project')
     project_title = models.CharField(max_length=100)
     registration_no = models.CharField(max_length=100, primary_key=True)
     project_brief = models.TextField(default='description')
     submission_date = models.DateTimeField()
-    supervisor = models.ManyToManyField(User, limit_choices_to={'is_lecturer':True}, related_name='projects_assigned')
+    supervisor = models.ManyToManyField(User, limit_choices_to={'is_lecturer': True}, related_name='projects_assigned')
     pdf = models.FileField(upload_to='projects/pdf/')
     status = models.CharField(max_length=30, choices=STATUS_CHOICES, default='PENDING')
 
@@ -72,6 +72,14 @@ class LecturerRemarks(models.Model):
         return self.project_title
 
 
+class StudentRemarks(models.Model):
+    lecturer = models.ForeignKey(Lecturer,related_name='given_remarks',on_delete=models.CASCADE)
+    student = models.ForeignKey(Student,related_name="remarks",on_delete=models.CASCADE)
+    project_name = models.CharField(max_length=250)
+    remarks_obtained = models.TextField()
+
+    def __str__(self):
+        return self.project_name
 #class SubmitProject(models.Model):
     #student = models.ForeignKey(Student, related_name='student_submit', on_delete=models.CASCADE)
     #lecturer = models.ForeignKey(Lecturer, related_name='lecturer_submit',on_delete=models.CASCADE)
@@ -97,7 +105,7 @@ class Category(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
 
     def __str__(self):

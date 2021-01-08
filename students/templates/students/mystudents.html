@@ -28,13 +28,13 @@
                 {% for project in my_projects %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
-                        <td>{{project.student}}</td>
+                        <td>{{project.registration_no}}</td>
                         <td>{{project.project_title}}</td>
                         <td>{{project.submission_date}}</td>
                         <td class="text-capitalize">{{project.status}}</td>
                         <td><a href="{{project.pdf.url}}" class="btn btn-primary" target="_blank">Download</a></td>
-                        #<td><a  class="btn btn-primary" href="#">update status</a></td>
-                        <td><a  class="btn btn-danger" href="{% url 'add_remarks'  %}">Remarks</a></td>
+                        <!--<td><a  class="btn btn-primary" href="#">update status</a></td>-->
+                        <td><a  class="btn btn-danger" href="{% url 'users:add_remarks'  %}">Remarks</a></td>
 
 
                     </tr>

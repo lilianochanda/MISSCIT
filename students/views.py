@@ -20,7 +20,7 @@ from .decorators import allowed_users
 from django.utils import timezone
 from django.views import generic
 from django.urls import reverse_lazy
-
+from students import models
 
 class ProjectUpdateView(UpdateView):
     model = Project
@@ -38,9 +38,13 @@ class ProjectUpdateView(UpdateView):
 
 
 def student_remarks(request):
-    projects = Project.objects.all()
+    student = request.user
+    projects = student.student_project.all()
+    context = {
+        'my_projects': projects
+    }
 
-    return render(request, 'students/student_remarks.html', {'Projects': projects})
+    return render(request, 'students/student_remarks.html', context)
 
 
 def project_list(request):
@@ -60,20 +64,40 @@ def upload(request):
         context['url'] = fs.url(name)
         return render(request, 'students/upload.html', context)
 
+class ProjectUploadView(CreateView):
+    model = Project
+    fields = ('phase', 'project_title', 'registration_no', 'project_brief', 'submission_date', 'supervisor', 'pdf')
+    template_name = 'students/upload_project.html'
+
+    def form_valid(self,form):
+        user = self.request.user
+        project = form.save(commit=False)
+
+        project.save()
+        project.student.add(user)
+        project.save()
+        print(project.student)
+        return super(ProjectUploadView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("users:student_remarks")
+
 
 def upload_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
-            project = form.save(commit=False)
             user = request.user
-            project.student = Student
-            project.student = user
-            form.save()
-        return redirect('student_remarks')
+            project = form.save(commit=False)
+            project.student.add(user)
+            project.save()
+            print(project)
+            print(project.student)
+        return redirect('project_list')
     else:
         form = ProjectForm()
-    return render(request, 'students/upload_project.html', {
+        projects = Project.objects.all()
+    return render(request, 'students/upload_project.html', {'Projects':projects,
         'form': form
     })
 
@@ -166,7 +190,6 @@ def mystudents(request):
         'lecturer': lecturer,
         'my_projects': request.user.projects_assigned.all()
     }
-
     return render(request, 'students/mystudents.html', context)
 
 
@@ -204,20 +227,20 @@ def index(request):
 
 
 def add_remarks(request):
-    remarks_given = False
-    student = get_object_or_404(models.Student)
+    remarks_obtained = False
+    #student = get_object_or_404(models.Student)
     if request.method == "POST":
         form = RemarksForm(request.POST)
         if form.is_valid():
             remarks = form.save(commit=False)
-            remarks.student = student
+            remarks.student = Student
             remarks.lecturer = request.user.lecturer
             remarks.save()
             messages.success(request, 'remarks uploaded successfully!')
-            return redirect('students:mystudents')
+            return redirect('mystudents')
     else:
         form = RemarksForm()
-    return render(request, 'students/add_marks.html', {'form':form, 'student':student, 'remarks_given':remarks_given})
+    return render(request, 'students/add_remarks.html', {'form':form, 'remarks_obtained':remarks_obtained})
 
 
 #class IndexView(generic.ListView):

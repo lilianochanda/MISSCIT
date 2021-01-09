@@ -49,7 +49,7 @@ class Project(models.Model):
     phase = models.CharField(max_length=30, choices=PHASE_CHOICES, default='PROJECT_CONCEPT')
     student = models.ManyToManyField(User, limit_choices_to={'is_student': True},related_name='student_project')
     project_title = models.CharField(max_length=100)
-    registration_no = models.CharField(max_length=100, primary_key=True)
+    registration_no = models.CharField(max_length=100)
     project_brief = models.TextField(default='description')
     submission_date = models.DateTimeField()
     supervisor = models.ManyToManyField(User, limit_choices_to={'is_lecturer': True}, related_name='projects_assigned')
@@ -69,7 +69,7 @@ class LecturerRemarks(models.Model):
     status = models.CharField(max_length=30, choices=STATUS_CHOICES)
 
     def __str__(self):
-        return self.project_title
+        return self.project_title.project_title
 
 
 class StudentRemarks(models.Model):
@@ -106,7 +106,7 @@ class Category(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    image = models.ImageField(default='default.png', upload_to='profile_pics')
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -122,5 +122,5 @@ class Profile(models.Model):
             img.save(self.image.path)
 
 
-
+#class Coordinator(models.Model)
 

@@ -21,12 +21,22 @@
                         <th scope="row">{{ forloop.counter }}</th>
                         <td>{{ project.project_title}}</td>
                         <td>{{ project.phase }}</td>
-                        <td>{{ project.status }}</td>
-                        <td>{{ project.remarks_obtained}}</td>
+                        <td>
+                            {% for remark in project.student_projects.all %}
+                            <p>{{ remark.status }}</p>
+                            {% endfor %}
+                        </td>
 
+                        <td>
+                            {% for remark in project.student_projects.all %}
+                                <p>{{remark.remarks_obtained}}</p>
+                            {% empty %}
+                                <p>No Remarks</p>
+                            {% endfor %}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
                  </table>
                 </div>
-{% endblock content%}
+{% endblock content %}

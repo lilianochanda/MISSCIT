@@ -1,4 +1,4 @@
-{% extends "students/essentials/body4.html" %}
+{% extends "students/essentials/body6.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container">
@@ -6,7 +6,7 @@
   {% if remarks_given %}
   <h1>Remarks added successfully.</h1>
   {% else %}
-  <h1>Give Remarks to {{ student.registration_no }}</h1>
+  <h1>Give Remarks  {{ student.username }}</h1>
   <form method="post">
     {% csrf_token %}
     {{ form|crispy }}

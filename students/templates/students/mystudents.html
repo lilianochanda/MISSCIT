@@ -1,4 +1,4 @@
-{% extends "students/essentials/body5.html" %}
+{% extends "students/essentials/body6.html" %}
 {% block content %}
    
             <!--content-->
@@ -33,9 +33,8 @@
                         <td>{{project.submission_date}}</td>
                         <td class="text-capitalize">{{project.status}}</td>
                         <td><a href="{{project.pdf.url}}" class="btn btn-primary" target="_blank">Download</a></td>
-                        <!--<td><a  class="btn btn-primary" href="#">update status</a></td>-->
                         <td><a  class="btn btn-danger" href="{% url 'users:add_remarks'  %}">Remarks</a></td>
-
+                        <!--<td><button type="submit" class="btn btn-primary">FWD TO COORDINATOR</button></td>-->
 
                     </tr>
                 {% endfor %}

@@ -40,6 +40,9 @@ class ProjectUpdateView(UpdateView):
 def student_remarks(request):
     student = request.user
     projects = student.student_project.all()
+    # for project in projects:
+    #     # print(dir(project))
+    #     print(project.student_projects.all())
     context = {
         'my_projects': projects
     }
@@ -66,13 +69,13 @@ def upload(request):
 
 class ProjectUploadView(CreateView):
     model = Project
-    fields = ('phase', 'project_title', 'registration_no', 'project_brief', 'submission_date', 'supervisor', 'pdf')
+    fields = ('phase', 'project_title','registration_no', 'project_brief', 'submission_date', 'supervisor', 'pdf')
     template_name = 'students/upload_project.html'
 
     def form_valid(self,form):
         user = self.request.user
         project = form.save(commit=False)
-
+        #project.registration_no = user.registration_no
         project.save()
         project.student.add(user)
         project.save()
@@ -135,7 +138,7 @@ def submit_list(request):
 def home(request):
     if request.user.is_authenticated:
         if request.user.is_lecturer:
-            return redirect('users:mystudents')
+            return redirect('users:my_students')
         else:
             return render(request, 'students/home.html')
     return render(request, 'students/home.html')
@@ -192,9 +195,19 @@ def mystudents(request):
     }
     return render(request, 'students/mystudents.html', context)
 
+def all_projects(request):
+    if request.user.is_superuser:
+        projects = Project.objects.all()
+        context = {
+            'Projects': projects
+        }
+        return render(request, 'students/complete_projects.html', context)
+    else:
+        return render(request, 'students/home.html')
 
 @login_required
 def profile(request):
+    print(dir(request.user))
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
@@ -233,11 +246,12 @@ def add_remarks(request):
         form = RemarksForm(request.POST)
         if form.is_valid():
             remarks = form.save(commit=False)
-            remarks.student = Student
+            # remarks.student = Student
+            remarks.student =form.cleaned_data.get('student')
             remarks.lecturer = request.user.lecturer
             remarks.save()
             messages.success(request, 'remarks uploaded successfully!')
-            return redirect('mystudents')
+            return redirect('students/my_students')
     else:
         form = RemarksForm()
     return render(request, 'students/add_remarks.html', {'form':form, 'remarks_obtained':remarks_obtained})
